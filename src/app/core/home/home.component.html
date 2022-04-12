@@ -1,0 +1,47 @@
+<app-menu></app-menu>
+<div class="component container-md vertical-center">
+    <main *ngIf='user' class="single box-style">
+        <section class="heading">
+            <span class="page-title font-weight-bold font-italic"><h6>{{title}} {{user.userName}}!</h6></span>
+            <span *ngIf="user">&nbsp;<a routerLink="/user-edit/{{user.id}}">Edit User</a></span>
+        </section>
+        <table class="table table-sm">
+            <tr>
+                <td>ID</td>
+                <td>{{user.id}}</td>
+            </tr>
+            <tr>
+                <td>Username:</td>
+                <td><input [(ngModel)]="user.userName" class="rounded" type="text" disabled></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input [(ngModel)]="user.password" class="rounded" type="password" disabled></td>
+            </tr>
+            <tr>
+                <td>First Name:</td>
+                <td><input [(ngModel)]="user.firstName" class="rounded" type="text" disabled></td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td><input [(ngModel)]="user.lastName" class="rounded" type="text" disabled></td>
+            </tr>
+            <tr>
+                <td>Phone Number:</td>
+                <td><input [(ngModel)]="user.phoneNumber" class="rounded" type="text" disabled></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input [(ngModel)]="user.email" class="rounded" type="text" disabled></td>
+            </tr>
+            <tr>
+                <td>Reviewer:</td>
+                <td><input [(ngModel)]="user.reviewer" class="rounded" type="checkbox" disabled></td>
+            </tr>
+            <tr>
+                <td>Admin:</td>
+                <td><input [(ngModel)]="user.admin" class="rounded" type="checkbox" disabled></td>
+            </tr>
+        </table>
+    </main>
+</div>

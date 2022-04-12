@@ -1,0 +1,28 @@
+<app-menu></app-menu>
+<section class="heading">
+    <span class='component-title'>[{{title}}]</span>
+    <span *ngIf="lineItem">&nbsp;<a routerLink="/request-lines/{{lineItem.request.id}}">Return to List</a></span>
+  </section>
+  <main class="single">
+    <table *ngIf="lineItem" class="table table-sm">
+        <tr>
+            <td>
+                Product:
+            </td>
+            <td>
+                <select [(ngModel)]="lineItem.product" class="rounded" [compareWith]="compProduct">
+                    <option *ngFor='let product of products' [ngValue]='product'>{{product.name}}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Quantity:
+            </td>
+            <td>
+                <input [(ngModel)]="lineItem.quantity" class="rounded" type="text">
+            </td>
+        </tr>
+    </table>
+  </main>
+  <span><button (click)="save()" class="btn btn-sm btn-primary">{{submitBtnTitle}}</button></span>

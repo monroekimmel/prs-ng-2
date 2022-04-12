@@ -1,0 +1,45 @@
+<app-menu></app-menu>
+<section class="heading">
+    <span class="page-title font-weight-bold font-italic">[{{requestTitle}}]</span>
+    <span *ngIf='request'>&nbsp;<a routerLink="/request-review/{{request.user.id}}">Return to List</a></span>
+</section>
+<table *ngIf='request' class="table table-sm table-striped">
+    <thead>
+        <tr>
+            <th>ID</th><th>Description</th><th>Status</th><th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{request.id}}</td>
+            <td>{{request.description}}</td>
+            <td>{{request.status}}</td>
+            <td>${{request.total}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<section *ngIf='request' class="heading">
+    <span class="page-title font-weight-bold font-italic">[{{linesTitle}}]</span>
+</section>
+<table class="table table-sm table-striped">
+    <thead>
+        <tr>
+            <th>ID</th><th>Product</th><th>Quantity</th><th>Price</th><th>Line Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor='let lineItem of lineItems'>
+            <td>{{lineItem.id}}</td>
+            <td>{{lineItem.product.name}}</td>
+            <td>{{lineItem.quantity}}</td>
+            <td>${{lineItem.product.price}}</td>
+            <td>${{lineItem.quantity * lineItem.product.price}}</td>
+        </tr>
+        <button class="btn btn-primary" (click)="approve()">{{approveBtn}}</button>
+        <span *ngIf="request">
+            <input [(ngModel)]="request.reasonForRejection" class="rounded" type="text" placeholder="Reason for Rejection">
+            <span *ngIf="request.reasonForRejection"><button class="btn btn-danger" (click)="reject()">{{rejectBtn}}</button></span>
+        </span>
+    </tbody>
+</table>

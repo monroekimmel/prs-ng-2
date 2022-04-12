@@ -1,0 +1,57 @@
+<app-menu></app-menu>
+<section class="heading">
+    <span class="page-title font-weight-bold font-italic">{{requestTitle}}</span>
+</section>
+<span class="py-left">&nbsp;<a routerLink="/request-list">Return to List</a></span>
+<table *ngIf='request' class="table table-sm table-striped">
+    <thead>
+        <tr>
+            <th class="pg-left">ID</th><th>Description</th><th>Status</th><th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="pg-left">{{request.id}}</td>
+            <td>{{request.description}}</td>
+            <td>{{request.status}}</td>
+            <td>{{request.total | currency}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<section *ngIf='request' class="heading">
+    <span class="page-title font-weight-bold font-italic">{{linesTitle}}</span>
+    <a routerLink='/line-item-create/{{request.id}}' [hidden]="isDisabled">
+        <img width='20' height='20' src='assets/add-icon.png' title='Add New'>
+    </a>
+</section>
+<table class="table table-sm table-striped">
+    <thead>
+        <tr>
+            <th class="pg-left">ID</th><th>Product</th><th>Quantity</th><th>Price</th><th>Line Total</th><th [hidden]="isDisabled">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr [hidden]="isHidden" *ngFor='let lineItem of lineItems'>
+            <td class="pg-left">{{lineItem.id}}</td>
+            <td>{{lineItem.product.name}}</td>
+            <td>{{lineItem.quantity}}</td>
+            <td>{{lineItem.product.price | currency}}</td>
+            <td>{{lineItem.quantity * lineItem.product.price | currency}}</td>
+            <td [hidden]="isDisabled"><a routerLink='/line-item-edit/{{lineItem.id}}'>
+                <img width='20' height='20' src='assets/pencil-icon.png' title='Line Item Edit'></a>            
+                <a style="cursor: pointer"><img width='20' height='20' src='assets/delete.jpg' title='Line Item Delete' (click)="delete(lineItem.id)"></a>
+            </td>
+        </tr>
+        <tr [hidden]="!isHidden">
+            <tr *ngIf='lineItems.length == 0'>
+                <td class="table-danger" colspan="6" >No Line Items yet. Please create a new one!</td>
+            <td class="table-danger"></td>
+            <td class="table-danger"></td>
+            <td class="table-danger"></td>
+            <td class="table-danger"></td>
+            <td class="table-danger"></td>
+        </tr>
+        <button class="btn btn-primary btn-margin" [disabled]="isDisabled" [hidden]="isHidden" (click)="submit()">Submit for Review</button>
+    </tbody>
+</table>
